@@ -33,7 +33,8 @@ class RingBuffer:
         # we need to return the list of all the items value
         # run a loop while there is a head
         var_head = self.storage.head
-        while var_head:
+        # we want to kick out of loop once there is no next, so eventual var_head will = None at the end of the loop
+        while var_head is not None:
             # append the head to the list
             list_buffer_contents.append(var_head)
         # run through the head.next
