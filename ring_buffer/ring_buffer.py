@@ -9,15 +9,21 @@ class RingBuffer:
 
     def append(self, item):
         # check to see if the capacity is greater than the length of nodes in the dll
-        # if it is  than we can add to the storage
-        # we would add to the tail(newest)
-        # then the head(oldest) would become current
+        if self.capacity > self.storage.length:
+            # if it is  than we can add to the storage
+            # we would add to the tail(newest)
+            self.storage.add_to_tail(item)
+            # then the head(oldest) would become current
+            self.current = self.storage.head
 
         # elif if capacity and storage are equal we need to
-        # remove the head
+        elif self.capacity == self.storage.length:
+            # remove the head
+            self.storage.remove_from_head()
         # add new item to the head
+            self.storage.add_to_head(item)
         # head equals new item
-        pass
+            self.storage.head = item
 
     def get(self):
         # Note:  This is the only [] allowed
