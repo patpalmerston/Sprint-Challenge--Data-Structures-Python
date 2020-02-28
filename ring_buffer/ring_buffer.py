@@ -8,6 +8,11 @@ class RingBuffer:
         self.storage = DoublyLinkedList()
 
     def append(self, item):
+        # main focus is if capacity is greater than the size/length of the storage
+        # if capacity is greater than storage we can add to the tail
+        # grab the head in a variable for current
+
+        # if capacity is
         pass
 
     def get(self):
