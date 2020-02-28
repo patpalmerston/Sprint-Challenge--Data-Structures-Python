@@ -32,10 +32,13 @@ class RingBuffer:
         # TODO: Your code here
         # we need to return the list of all the items value
         # run a loop while there is a head
-        # append the head to the list
+        var_head = self.storage.head
+        while var_head:
+            # append the head to the list
+            list_buffer_contents.append(var_head)
         # run through the head.next
+            var_head = var_head.next
         # return the list
-
         return list_buffer_contents
 
 # ----------------Stretch Goal-------------------
