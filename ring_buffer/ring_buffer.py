@@ -8,11 +8,15 @@ class RingBuffer:
         self.storage = DoublyLinkedList()
 
     def append(self, item):
-        # main focus is if capacity is greater than the size/length of the storage
-        # if capacity is greater than storage we can add to the tail
-        # grab the head in a variable for current
+        # check to see if the capacity is greater than the length of nodes in the dll
+        # if it is  than we can add to the storage
+        # we would add to the tail(newest)
+        # then the head(oldest) would become current
 
-        # if capacity is
+        # elif if capacity and storage are equal we need to
+        # remove the head
+        # add new item to the head
+        # head equals new item
         pass
 
     def get(self):
@@ -20,6 +24,11 @@ class RingBuffer:
         list_buffer_contents = []
 
         # TODO: Your code here
+        # we need to return the list of all the items value
+        # run a loop while there is a head
+        # append the head to the list
+        # run through the head.next
+        # return the list
 
         return list_buffer_contents
 
