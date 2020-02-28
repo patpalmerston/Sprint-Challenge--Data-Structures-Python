@@ -54,6 +54,9 @@ class DoublyLinkedList:
         self.tail = node
         self.length = 1 if node is not None else 0
 
+    def __repr__(self):
+        return f"head:{self.head}, tail:{self.tail}, length:{self.length}"
+
     def __len__(self):
         return self.length
 

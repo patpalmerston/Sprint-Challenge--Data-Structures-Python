@@ -7,6 +7,9 @@ class RingBuffer:
         self.current = None
         self.storage = DoublyLinkedList()
 
+    def __repr__(self):
+        return f"cap:{self.capacity}, curr:{self.current}, stor:{self.storage}"
+
     def append(self, item):
         # check to see if the capacity is greater than the length of nodes in the dll
         if self.capacity > self.storage.length:
@@ -34,9 +37,16 @@ class RingBuffer:
         # run a loop while there is a head
         var_head = self.storage.head
         # we want to kick out of loop once there is no next, so eventual var_head will = None at the end of the loop
+
+        # var_head_value = self.storage.head.value
+
+        var_head_value = self.storage.head.value
+
         while var_head is not None:
             # append the head to the list
-            list_buffer_contents.append(var_head)
+            list_buffer_contents.append(var_head_value)
+
+            var_head_value = self.storage.head.next.value
         # run through the head.next
             var_head = var_head.next
         # return the list
