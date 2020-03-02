@@ -11,33 +11,72 @@ class RingBuffer:
         return f"cap:{self.capacity}, curr:{self.current}, stor:{self.storage}"
 
     def append(self, item):
-        # current is always the oldest
-        # while storage is less than capacity
-        if self.storage.length < self.capacity:
-            # add item to tail
+        # check to see if the capacity is greater than the length of nodes in the dll
+        if self.capacity > self.storage.length:
+            # if it is  than we can add to the storage
+            # we would add to the tail(newest) until we hit capacity
             self.storage.add_to_tail(item)
-            # tail becomes current(newest)
-            self.current = self.storage.tail
+            # The head(oldest) would become current
+            self.current = self.storage.head
 
-            # if storage is equal to capacity
-        elif self.storage.length == self.capacity:
-
-            if self.current is self.storage.tail:
-                # remove oldest item from head
+        # elif if capacity and storage are equal we need to
+        elif self.capacity == self.storage.length:
+            # check to see if capacity is the head
+            if self.current == self.storage.head:
+                # remove the head
                 self.storage.remove_from_head()
-                # add newest item to head
+                # add new item to the head
                 self.storage.add_to_head(item)
-                # move current forward to head which is newest
-                self.current = self.storage.head
+                # move current forward one
+            elif self.current == self.storage.tail:
+                # remove tail
+                self.storage.remove_from_tail()
+                # insert item to tail
+                self.storage.add_to_tail(item)
+                # # current becomes head
+                # self.current = self.storage.head
             else:
-                # insert item after the current
+
+                # insert item after the previous
                 self.current.insert_after(item)
-                # keep track of increase in storage
+                # increase the length since insert does not
                 self.storage.length += 1
-                # move current forward to be the newest node
+                # currnt equal current previous
                 self.current = self.current.next
-                # delete the node in front(oldest) and delete will auto decrease length of storage
-                self.storage.delete(self.current.next)
+                # delent current next
+                self.storage.delete(self.current.prev)
+
+            self.current = self.current.next
+            if self.current == None:
+                self.current = self.storage.head
+
+        # # Version 1 = current is always the newest
+        # # while storage is less than capacity
+        # if self.storage.length < self.capacity:
+        #     # add item to tail
+        #     self.storage.add_to_tail(item)
+        #     # tail becomes current(newest)
+        #     self.current = self.storage.tail
+
+        #     # if storage is equal to capacity
+        # elif self.storage.length == self.capacity:
+
+        #     if self.current is self.storage.tail:
+        #         # remove oldest item from head
+        #         self.storage.remove_from_head()
+        #         # add newest item to head
+        #         self.storage.add_to_head(item)
+        #         # move current forward to head which is newest
+        #         self.current = self.storage.head
+        #     else:
+        #         # insert item after the current
+        #         self.current.insert_after(item)
+        #         # keep track of increase in storage
+        #         self.storage.length += 1
+        #         # move current forward to be the newest node
+        #         self.current = self.current.next
+        #         # delete the node in front(oldest) and delete will auto decrease length of storage
+        #         self.storage.delete(self.current.next)
 
     def get(self):
         # Note:  This is the only [] allowed
