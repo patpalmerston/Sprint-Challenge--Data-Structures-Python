@@ -11,6 +11,7 @@ class RingBuffer:
         return f"cap:{self.capacity}, curr:{self.current}, stor:{self.storage}"
 
     def append(self, item):
+        # version two with current being the oldest node
         # check to see if the capacity is greater than the length of nodes in the dll
         if self.capacity > self.storage.length:
             # if it is  than we can add to the storage
@@ -33,20 +34,18 @@ class RingBuffer:
                 self.storage.remove_from_tail()
                 # insert item to tail
                 self.storage.add_to_tail(item)
-                # # current becomes head
-                # self.current = self.storage.head
             else:
-
-                # insert item after the previous
+                # insert item after the current
                 self.current.insert_after(item)
                 # increase the length since insert does not
                 self.storage.length += 1
-                # currnt equal current previous
+                # currnt equal next node
                 self.current = self.current.next
-                # delent current next
+                # delete prev node
                 self.storage.delete(self.current.prev)
-
+            # increment currents as the oldest
             self.current = self.current.next
+            # when we hit the tail we have a value of None so reset to oldest node or (head)
             if self.current == None:
                 self.current = self.storage.head
 
